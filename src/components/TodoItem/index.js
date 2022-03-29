@@ -37,8 +37,9 @@ export default function TodoItem(props) {
         textDecoration={checked ? 'line-through' : 'none'}
       >
         <Box display="flex">
-          <Checkbox isChecked={checked} mr={2} onChange={handleCheckedChange} />
-          <Text lineHeight={2}>{todo.name}</Text>
+          <Checkbox isChecked={checked} mr={2} onChange={handleCheckedChange}>
+            <Text>{todo.name}</Text>
+          </Checkbox>
         </Box>
         <Box display="flex" alignItems="center">
           <Box
