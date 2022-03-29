@@ -1,40 +1,26 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { ChakraProvider, theme } from '@chakra-ui/react';
+import React, { useReducer, createContext } from 'react';
+import TodoList from './components/TodoList';
 
+import { reducer } from './reducer';
+
+const intitialState = {
+  name: '',
+  search: '',
+  todos: [
+    { id: 1, name: 'Learn ReactJs', completed: false },
+    { id: 2, name: 'Learn Chakra UI', completed: true },
+  ],
+};
+
+export const TodoContext = createContext(null);
 function App() {
+  const [state, dispatch] = useReducer(reducer, intitialState);
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
+      <TodoContext.Provider value={dispatch}>
+        <TodoList state={state} />
+      </TodoContext.Provider>
     </ChakraProvider>
   );
 }
