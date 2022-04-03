@@ -21,6 +21,7 @@ function App() {
       <TodoContext.Provider value={dispatch}>
         <TodoList state={state} />
       </TodoContext.Provider>
+
     </ChakraProvider>
   );
 }
